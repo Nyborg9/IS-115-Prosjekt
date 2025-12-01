@@ -2,7 +2,7 @@
 require_once('../inc/database.inc.php');
 
 
-function addUser(PDO $pdo, string $fornavn, string $etternavn, string $epost, string $fødselsdato, string $passordHash): bool {
+function addUser(PDO $pdo, string $firstName, string $lastName, string $email, string $birthday, string $passwordHash): bool {
 
 
 #Når funksjonen kjøres så prøver mann å legge til en bruker i databasen.
@@ -18,11 +18,11 @@ try {
 
 
 
-    $q->bindParam(':FirstName', $fornavn, PDO::PARAM_STR);
-    $q->bindParam(':LastName', $etternavn, PDO::PARAM_STR);
-    $q->bindParam(':Email', $epost, PDO::PARAM_STR);
-    $q->bindParam(':DateOfBirth', $fødselsdato, PDO::PARAM_STR);
-    $q->bindParam(':Password_hash', $passordHash, PDO::PARAM_STR);
+    $q->bindParam(':FirstName', $firstName, PDO::PARAM_STR);
+    $q->bindParam(':LastName', $lastName, PDO::PARAM_STR);
+    $q->bindParam(':Email', $email, PDO::PARAM_STR);
+    $q->bindParam(':DateOfBirth', $birthday, PDO::PARAM_STR);
+    $q->bindParam(':Password_hash', $passwordHash, PDO::PARAM_STR);
 
 
     $q->execute();
