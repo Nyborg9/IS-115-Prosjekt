@@ -137,7 +137,7 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <!-- Slett stilling: POST-skjema med bekreftelse -->
                         <form method="post" class="inline"
                               onsubmit="return confirm('Er du sikker på at du vil slette denne stillingen og alle tilhørende søknader?');">
-                            <input type="hidden" name="ListingID" value="<?= (int)$listing['ListingID'] ?>">
+                            <input type="hidden" name="ListingID" value="<?= $listing['ListingID'] ?>">
                             <button type="submit" name="deleteListing" class="btn"
                                     style="background:#e74c3c;color:white;">
                                 Slett

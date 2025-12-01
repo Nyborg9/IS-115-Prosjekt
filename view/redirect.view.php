@@ -1,4 +1,6 @@
-<?php include "../inc/navbarController.inc.php";?>
+<?php 
+session_start();
+include "../inc/navbarController.inc.php";?>
 
 <!DOCTYPE html>
 <html>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../inc/navbarController.inc.php";
 ?>
 

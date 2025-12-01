@@ -21,7 +21,7 @@ if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stillings-ID.");
 }
 
-$listingID = $_GET['listingID'];
+$listingID = (int)$_GET['listingID'];
 
 // Sjekk at denne utlysningen faktisk tilhører innlogget arbeidsgiver
 $sqlListing = "
@@ -42,25 +42,27 @@ if (!$listing) {
 
 // Håndter POST godta / avvis søknad
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['applicationAction'])) {
-    $applicationID = isset($_POST['ApplicationID']) ? $_POST['ApplicationID'] : 0;
+    $applicationID = isset($_POST['ApplicationID']) ? (int)$_POST['ApplicationID'] : 0;
     $action = $_POST['applicationAction'];
 
     if ($applicationID > 0) {
 
-        //Epost
-        $to = $_POST["Email"];
+        // Epost
+        $to      = $_POST["Email"];
         $subject = "Vedrørende din søknad på stillingen " . $_POST["Title"];
-        $from = "jegernyborg@gmail.com";
-        $mheader = "From: " . $from . "\r\n" . "Reply-To: " . $to . "\r\n" . "X-Mailer: PHP/" . phpversion();
+        $from    = "jegernyborg@gmail.com";
+        $mheader = "From: " . $from . "\r\n" .
+                   "Reply-To: " . $to . "\r\n" .
+                   "X-Mailer: PHP/" . phpversion();
 
-
-        if ($action == "Godta"){
+        if ($action === "Godta") {
             $newStatus = 2;
-            $message = "Du har gått videre i vår prosses, og vi vil ta kontakt med deg fortløpene for å avtale intevju";
-        }
-        elseif ($action == "Avvis"){
+            $message   = "Du har gått videre i vår prosses, og vi vil ta kontakt med deg fortløpene for å avtale intevju";
+        } elseif ($action === "Avvis") {
             $newStatus = 3;
-            $message = "Du ble dessverre ikke tatt med videre i vår prosess.";
+            $message   = "Du ble dessverre ikke tatt med videre i vår prosess.";
+        } else {
+            $newStatus = 1; // fallback, burde egentlig ikke skje
         }
 
         // Oppdater bare hvis søknaden tilhører denne stillingen
@@ -79,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['applicationAction']))
         $stmtUpdate->bindParam(':listingID', $listingID, PDO::PARAM_INT);
         $stmtUpdate->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmtUpdate->execute();
+
         mail($to, $subject, $message, $mheader);
     }
 
@@ -95,6 +98,7 @@ $sqlApplications = "
         a.ApplicationText,
         a.created_at,
         a.ApplicationStatus,
+        a.CvPath,          -- 🔹 NY: hent sti til PDF
         u.FirstName,
         u.LastName,
         u.Email
@@ -139,6 +143,13 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
             padding: 3px 8px;
             cursor: pointer;
         }
+        a.cv-link {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 8px;
+            border: 1px solid #333;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -152,10 +163,11 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
     <?php else: ?>
         <?php foreach ($applications as $app): ?>
             <?php
-            $statusText = match ($app['ApplicationStatus']) {
-                1  => 'Venter',
+            $statusText = match ((int)$app['ApplicationStatus']) {
+                1 => 'Venter',
                 2 => 'Godkjent',
                 3 => 'Avvist',
+                default => 'Ukjent',
             };
             ?>
             <div class="application-card">
@@ -168,6 +180,21 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
 
                 <p><?= nl2br(htmlspecialchars($app['ApplicationText'])); ?></p>
 
+                <?php if (!empty($app['CvPath'])): ?>
+                    <p>
+                        CV:
+                        <a class="cv-link" href="../<?= htmlspecialchars($app['CvPath']); ?>" target="_blank">
+                            Åpne CV (PDF)
+                        </a>
+                    </p>
+                <?php else: ?>
+                    <p>CV: Ikke lastet opp</p>
+                <?php endif; ?>
+
+                <form method="post" class="inline">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
+                    <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
                 <!-- Godta -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
                     <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
@@ -178,6 +205,10 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
                     </button>
                 </form>
 
+                <form method="post" class="inline">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
+                    <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
                 <!-- Avvis -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
                     <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">

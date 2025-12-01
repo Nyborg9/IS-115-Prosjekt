@@ -1,12 +1,12 @@
 <?php
 require_once('../inc/database.inc.php');
 
-function addApplication(PDO $pdo, int $userID, int $listingID, string $applicationText): bool
+function addApplication(PDO $pdo, int $userID, int $listingID, string $applicationText, ?string $cvPath): bool
 {
     try {
         $sql = "
-            INSERT INTO applications (UserID, ListingID, ApplicationText, created_at)
-            VALUES (:UserID, :ListingID, :ApplicationText, NOW())
+            INSERT INTO applications (UserID, ListingID, ApplicationText, CvPath, created_at, ApplicationStatus)
+            VALUES (:UserID, :ListingID, :ApplicationText, :CvPath, NOW(), 1)
         ";
 
         $stmt = $pdo->prepare($sql);
@@ -14,6 +14,7 @@ function addApplication(PDO $pdo, int $userID, int $listingID, string $applicati
         $stmt->bindParam(':UserID', $userID, PDO::PARAM_INT);
         $stmt->bindParam(':ListingID', $listingID, PDO::PARAM_INT);
         $stmt->bindParam(':ApplicationText', $applicationText, PDO::PARAM_STR);
+        $stmt->bindParam(':CvPath', $cvPath, PDO::PARAM_STR); // kan være null
 
         $stmt->execute();
 

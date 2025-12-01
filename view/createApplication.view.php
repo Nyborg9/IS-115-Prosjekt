@@ -32,14 +32,17 @@ include "../inc/applicationForm.inc.php";
 <div class="centered-content">
     <h1>Søk på: <?= htmlspecialchars($listing['Title']); ?></h1>
 
-    <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error); ?></p>
-    <?php endif; ?>
+    <form method="post"
+      action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?listingID=' . urlencode($listingID)); ?>"
+      enctype="multipart/form-data">
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?listingID=' . urlencode($listingID)); ?>">
 
         <label for="ApplicationText">Søknadstekst</label><br>
         <textarea name="ApplicationText" id="ApplicationText" rows="10" cols="60" required></textarea><br><br>
+
+        <label for="CvFile">Last opp CV (PDF)</label><br>
+        <input type="file" name="CvFile" id="CvFile" accept="application/pdf" required><br><br>
+        
 
         <input type="submit" name="createApplication" value="Send søknad"><br>
 
@@ -47,7 +50,7 @@ include "../inc/applicationForm.inc.php";
         <input type="hidden" name="dtstart" value="<?php echo $dtstart->format("Y-m-d H:i:s.u"); ?>">
     </form>
 
-    <p><a href="listings.view.php">← Tilbake til stillinger</a></p>
+    <p><a href="listings.view.php"> Tilbake til stillinger</a></p>
 </div>
 </body>
 </html>
