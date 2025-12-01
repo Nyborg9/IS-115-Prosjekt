@@ -1,0 +1,29 @@
+.centered-content {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+        }
+input[type="text"],
+textarea {
+        width: 100%;
+        padding: 6px;
+        box-sizing: border-box;
+        }
+textarea {
+        min-height: 120px;
+        }
+.errors {
+        color: red;
+        margin-bottom: 10px;
+        }
+.actions {
+        margin-top: 15px;
+        }
+.actions button,
+.actions a {
+        margin-right: 10px;
+        }
