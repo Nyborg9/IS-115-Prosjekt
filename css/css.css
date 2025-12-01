@@ -32,12 +32,11 @@ label {
         font-weight: bold;
 }
 
-input[type="text"], 
-textarea {
-        width: 100%;
-        padding: 6px;
-        box-sizing: border-box;
+input[type="text"]:not(.small-input),
+textarea:not(.small-input) {
+    width: 100%;
 }
+
 
 textarea {
         min-height: 120px;
@@ -55,4 +54,10 @@ textarea {
 .actions button,
 .actions a {
         margin-right: 10px;
+}
+
+.small-input {
+        width: 300px; 
+        padding: 6px;
+        box-sizing: border-box;
 }
