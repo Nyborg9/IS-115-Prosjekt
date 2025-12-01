@@ -24,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/IS-115-Prosjekt/view/myListings.view.php">Mine Jobb utlysninger</a>
+          <a class="nav-link" href="/IS-115-Prosjekt/view/myListings.view.php">Mine jobbutlysninger</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/IS-115-Prosjekt/view/createListing.view.php">Lag ny utlysning</a>
