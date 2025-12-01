@@ -92,7 +92,7 @@ try {
         {$messageText}<br><br>
         Stillingen: <b>{$app['Title']}</b><br><br>
         Vennlig hilsen,<br>
-        Bit by Bit
+        Fakultetet
     ";
 
     $mail->send();
