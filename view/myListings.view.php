@@ -102,13 +102,12 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="centered-content">
     <h1>Mine stillingsutlysninger</h1>
 
-    <?php if (count($listings) === 0): ?>
+    <?php if (count($listings) == 0): ?>
         <p>Du har ikke lagt ut noen stillinger enda.</p>
     <?php else: ?>
         <table>
             <thead>
             <tr>
-                <th>ListingID</th>
                 <th>Tittel</th>
                 <th>Opprettet</th>
                 <th>Søknader</th>
@@ -119,7 +118,6 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
             <?php foreach ($listings as $listing): ?>
                 <tr>
-                    <td><?= (int)$listing['ListingID'] ?></td>
                     <td><?= htmlspecialchars($listing['Title']) ?></td>
                     <td><?= htmlspecialchars($listing['created_at']) ?></td>
                     <td>

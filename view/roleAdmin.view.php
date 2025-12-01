@@ -7,8 +7,8 @@ if (!isset($_SESSION['RoleID'])) {
     exit;
 }
 
-//Sjekker at bruker er admin (RoleID = 3)
-elseif (!isset($_SESSION['RoleID']) || $_SESSION['RoleID'] !== 3) {
+//Sjekker at bruker er admin
+elseif ($_SESSION['RoleID'] != 3) {
     header("Location: noAccess.view.php");
     exit;
 }

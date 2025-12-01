@@ -1,10 +1,4 @@
 <?php
-        // Tidssone
-        $dts = new DateTimeZone("Europe/Oslo");
-       
-        // Tid ved lasting av skjema
-        $dtstart = new DateTime("now", $dts);
-
 
         // Kjøres når brukeren trykker "registrer"
         if(isset($_POST['createListing'])) {

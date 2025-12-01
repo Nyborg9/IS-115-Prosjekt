@@ -4,6 +4,17 @@ session_start();
     if (empty($_SESSION['logged_in'])) {
     header("Location: redirect.view.php");
     exit;}
+
+    if (!isset($_SESSION['RoleID'])) {
+    header("Location: redirect.view.php");
+    exit;
+}
+
+//Sjekker at bruker er Employer
+elseif ($_SESSION['RoleID'] != 1) {
+    header("Location: noAccess.view.php");
+    exit;
+}
     
     include "../inc/navbarController.inc.php";
 
@@ -23,9 +34,6 @@ include "../inc/listingForm.inc.php";
         <input type="text" name="TimePeriod" placeholder="Ansettelsesperiode"><br>
         <input type="number" name="HourScope" placeholder="Tidsomfang i timer" required><br>+
         <input type="submit" name="createListing" value="Fullfør"><br>
-        
-        <!-- En bot sjekk -->
-        <input type="hidden" name="dtstart" value="<?php echo $dtstart->format("Y-m-d H:i:s.u"); ?>">
     </form>
 </pre>
 

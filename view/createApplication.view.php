@@ -6,6 +6,17 @@ if (empty($_SESSION['logged_in'])) {
     exit;
 }
 
+if (!isset($_SESSION['RoleID'])) {
+    header("Location: redirect.view.php");
+    exit;
+}
+
+//Sjekker at bruker er standard bruker
+elseif ($_SESSION['RoleID'] != 2) {
+    header("Location: noAccess.view.php");
+    exit;
+}
+
 include "../inc/navbarController.inc.php";
 
 // Inkluderer logikken for søknadsskjemaet (bot-sjekk, insert, $listing, $error, $dtstart)
