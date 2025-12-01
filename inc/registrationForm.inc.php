@@ -16,7 +16,7 @@
             if ($birthdate == '') {
             $messages[] = "Du må oppgi fødselsdato.";
             } else {
-                // Forventer format YYYY-MM-DD fra <input type=\"date\">
+                // Lager ett DateTime objekt med birthdate strengen.
                 $birthdayDate = DateTime::createFromFormat('Y-m-d', $birthdate);
                 $today        = new DateTime('today');
 

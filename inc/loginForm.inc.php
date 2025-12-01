@@ -60,7 +60,7 @@
                     $_SESSION['LastName'] = $medlem->LastName;
                     $_SESSION['RoleID'] = $medlem->RoleID;
                         
-                    header("Location: listings.view.php");
+                    header("Location: ../index.php");
                     exit();
                 } else {
                     #Om passordet ikke er likt, så blir du enten utestengt (om du har mer en 3 forsøk), ellers så får du +1 i attempts

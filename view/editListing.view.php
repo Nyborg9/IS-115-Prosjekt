@@ -9,19 +9,19 @@ if (empty($_SESSION['logged_in'])) {
 }
 
 // Må være arbeidsgiver
-if (!isset($_SESSION['RoleID']) || (int)$_SESSION['RoleID'] != 1) {
+if (!isset($_SESSION['RoleID']) || $_SESSION['RoleID'] != 1) {
     header("Location: noAccess.view.php");
     exit;
 }
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 // Sjekk listingID fra GET
 if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stillings-ID.");
 }
 
-$listingID = (int)$_GET['listingID'];
+$listingID = $_GET['listingID'];
 
 // Hent stillingen og sjekk at den tilhører innlogget arbeidsgiver
 $sql = "
