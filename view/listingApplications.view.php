@@ -168,25 +168,27 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
 
                 <p><?= nl2br(htmlspecialchars($app['ApplicationText'])); ?></p>
 
-                    <form method="post" class="inline">
-                        <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
-                        <input type="hidden" name="Email" value="<?= $app['Email']; ?>">
-                        <input type="hidden" name="Title" value="<?= $listing['Title']; ?>">
-                        <button type="submit" name="applicationAction" value="Godta" class="btn"
-                                style="background:#2ecc71;color:white;">
-                            Godta
-                        </button>
-                    </form>
+                <!-- Godta -->
+                <form method="post" class="inline" action="../inc/handleApplication.inc.php">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Godta" class="btn"
+                            style="background:#2ecc71;color:white;">
+                        Godta
+                    </button>
+                </form>
 
-                    <form method="post" class="inline">
-                        <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
-                        <input type="hidden" name="Email" value="<?= $app['Email']; ?>">
-                        <input type="hidden" name="Title" value="<?= $listing['Title']; ?>">
-                        <button type="submit" name="applicationAction" value="Avvis" class="btn"
-                                style="background:#e74c3c;color:white;">
-                            Avvis
-                        </button>
-                    </form>
+                <!-- Avvis -->
+                <form method="post" class="inline" action="../inc/handleApplication.inc.php">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Avvis" class="btn"
+                            style="background:#e74c3c;color:white;">
+                        Avvis
+                    </button>
+                </form>
+
+
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
