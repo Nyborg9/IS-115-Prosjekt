@@ -62,22 +62,8 @@ $roleText = match ($user['RoleID']) {
 <head>
     <meta charset="UTF-8">
     <title>Min profil</title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        .centered-content {
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .field-label {
-            font-weight: bold;
-        }
-        .actions {
-            margin-top: 20px;
-        }
-        .actions a, .actions button {
-            margin-right: 10px;
-        }
-    </style>
+    <?php include "../inc/navbarController.inc.php"; 
+    include "../inc/header/head.inc.php";?>
 </head>
 <body>
 <div class="centered-content">
@@ -93,7 +79,7 @@ $roleText = match ($user['RoleID']) {
         <!-- Knapp for å redigere info -->
         <a href="editProfile.view.php" class="btn" style="border:1px solid black;">Endre informasjon</a>
 
-        <!-- Slett-konto knapp (ikke for admin) -->
+        <!-- Slett konto knapp -->
         <?php if ($user['RoleID'] != 3): ?>
             <form method="post" style="display:inline;"
                   onsubmit="return confirm('Er du sikker på at du vil slette kontoen din? Dette kan ikke angres.');">

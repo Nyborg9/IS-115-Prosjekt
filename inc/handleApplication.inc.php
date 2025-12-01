@@ -15,7 +15,7 @@ if (empty($_SESSION['logged_in']) || $_SESSION['RoleID'] != 1) {
     die("Ingen tilgang.");
 }
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 // Sjekk POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') die("Ugyldig forespørsel.");

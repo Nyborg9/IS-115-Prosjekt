@@ -17,8 +17,7 @@ elseif ($_SESSION['RoleID'] != 1) {
 }
     
     include "../inc/navbarController.inc.php";
-
-$pageTitle = "Lag utlysning";
+    
 include "../inc/listingForm.inc.php";
 ?>
 

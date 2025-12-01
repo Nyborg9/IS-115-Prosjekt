@@ -6,16 +6,16 @@ if (!isset($_SESSION['UserID'])) {
     exit;
 }
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 // Hent ListingID fra GET
 if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stilling.");
 }
 
-$listingID = (int)$_GET['listingID'];
+$listingID = $_GET['listingID'];
 
-// Koble til DB og hent stillingstittel (til overskrift)
+// Koble til DB og hent stillingstittel
 require_once "../inc/database.inc.php";
 
 $sqlListing = "

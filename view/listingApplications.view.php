@@ -21,7 +21,7 @@ if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stillings-ID.");
 }
 
-$listingID = (int)$_GET['listingID'];
+$listingID = $_GET['listingID'];
 
 // Sjekk at denne utlysningen faktisk tilhører innlogget arbeidsgiver
 $sqlListing = "
@@ -42,7 +42,7 @@ if (!$listing) {
 
 // Håndter POST godta / avvis søknad
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['applicationAction'])) {
-    $applicationID = isset($_POST['ApplicationID']) ? (int)$_POST['ApplicationID'] : 0;
+    $applicationID = isset($_POST['ApplicationID']) ? $_POST['ApplicationID'] : 0;
     $action = $_POST['applicationAction'];
 
     if ($applicationID > 0) {
@@ -98,7 +98,7 @@ $sqlApplications = "
         a.ApplicationText,
         a.created_at,
         a.ApplicationStatus,
-        a.CvPath,
+        a.CvPath,         
         u.FirstName,
         u.LastName,
         u.Email
@@ -118,39 +118,8 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Søknader til: <?= htmlspecialchars($listing['Title']); ?></title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        .centered-content {
-            max-width: 900px;
-            margin: 20px auto;
-        }
-        .application-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 12px;
-        }
-        .meta {
-            font-size: 0.9em;
-            color: #555;
-        }
-        .status {
-            font-weight: bold;
-        }
-        form.inline {
-            display: inline;
-        }
-        button.btn {
-            padding: 3px 8px;
-            cursor: pointer;
-        }
-        a.cv-link {
-            display: inline-block;
-            margin-top: 6px;
-            padding: 3px 8px;
-            border: 1px solid #333;
-            text-decoration: none;
-        }
-    </style>
+    <?php include "../inc/navbarController.inc.php"; 
+    include "../inc/header/head.inc.php"?>
 </head>
 <body>
 <div class="centered-content">
@@ -163,7 +132,7 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
     <?php else: ?>
         <?php foreach ($applications as $app): ?>
             <?php
-            $statusText = match ((int)$app['ApplicationStatus']) {
+            $statusText = match ($app['ApplicationStatus']) {
                 1 => 'Venter',
                 2 => 'Godkjent',
                 3 => 'Avvist',
@@ -192,29 +161,27 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
                 <form method="post" class="inline">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
                     <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
                     <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
                 <!-- Godta -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
-                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
-                    <button type="submit" name="applicationAction" value="Godta" class="btn"
-                            style="background:#2ecc71;color:white;">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= $listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Godta" class="btn btn-accept">
                         Godta
                     </button>
                 </form>
 
                 <form method="post" class="inline">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
                     <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
                     <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
                 <!-- Avvis -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
-                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
-                    <button type="submit" name="applicationAction" value="Avvis" class="btn"
-                            style="background:#e74c3c;color:white;">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= $listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Avvis" class="btn btn-danger">
                         Avvis
                     </button>
                 </form>
