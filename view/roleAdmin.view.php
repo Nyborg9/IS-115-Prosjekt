@@ -115,6 +115,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
             </thead>
             <tbody>
+    <!-- Loop som går igjennom alle brukerene og viser dem i en tabell-->
             <?php foreach ($users as $user): ?>
                 <?php
                 if ($user['RoleID'] == 1) {

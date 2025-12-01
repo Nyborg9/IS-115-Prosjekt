@@ -98,7 +98,7 @@ try {
     $mail->send();
 
 } catch (Exception $e) {
-    // FEIL — Ikke stopp systemet
+    // FEIL Ikke stopp systemet
     error_log("EPOST-FEIL: ".$mail->ErrorInfo);
 }
 

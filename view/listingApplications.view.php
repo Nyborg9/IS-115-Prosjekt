@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['applicationAction']))
             $newStatus = 3;
             $message   = "Du ble dessverre ikke tatt med videre i vår prosess.";
         } else {
-            $newStatus = 1; // fallback, burde egentlig ikke skje
+            $newStatus = 1; // fallback
         }
 
         // Oppdater bare hvis søknaden tilhører denne stillingen
