@@ -30,7 +30,7 @@ include "../inc/listingForm.inc.php";
 
         <input type="text" name="Title" placeholder="Tittel" required><br>
         <textarea type="text" name="ListingDescription" placeholder="Beskrivelse" required></textarea><br>
-        <input type="text" name="Requirements" placeholder="Kravene" required><br>
+        <input type="text" name="Requirements" placeholder="Krav" required><br>
         <input type="text" name="TimePeriod" placeholder="Ansettelsesperiode"><br>
         <input type="number" name="HourScope" placeholder="Tidsomfang i timer" required><br>+
         <input type="submit" name="createListing" value="Fullfør"><br>
