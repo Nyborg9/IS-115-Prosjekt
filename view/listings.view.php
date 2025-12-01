@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <?php 
             require_once "../inc/database.inc.php";
 /*
@@ -69,6 +70,11 @@
                                 htmlspecialchars($listing['HourScope']) .
                                 '</p>';
                         }
+
+                        echo '<a class="btn" href="createApplication.view.php?listingID=' . $listing['ListingID'] . '">
+                        Søk på stillingen
+                        </a>';
+
 
 
                         echo '</div>'; // end listing card

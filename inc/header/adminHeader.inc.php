@@ -6,6 +6,8 @@
     <title><?php echo $pageTitle ?? 'My Website'; ?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="stylesheet" href="../css/css.css">
 </head>
 <body>
     <header>
@@ -26,7 +28,7 @@
           <a class="nav-link" href="/IS-115-Prosjekt/view/listings.view.php">Jobb utlysninger</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/IS-115-Prosjekt/view/createListing.view.php">Lag ny utlysning</a>
+          <a class="nav-link" href="/IS-115-Prosjekt/view/roleAdmin.view.php">Administrer brukere</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/IS-115-Prosjekt/view/profile.view.php">Min profil</a>

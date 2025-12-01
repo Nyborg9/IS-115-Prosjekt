@@ -29,6 +29,9 @@
           <a class="nav-link" href="/IS-115-Prosjekt/view/profile.view.php">Min profil</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/IS-115-Prosjekt/view/myApplications.view.php">Mine søknader</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/IS-115-Prosjekt/view/logout.view.php">Logg ut</a>
         </li>
           </div>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
@@ -23,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/IS-115-Prosjekt/view/listings.view.php">Jobb utlysninger</a>
+          <a class="nav-link" href="/IS-115-Prosjekt/view/myListings.view.php">Mine Jobb utlysninger</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/IS-115-Prosjekt/view/createListing.view.php">Lag ny utlysning</a>

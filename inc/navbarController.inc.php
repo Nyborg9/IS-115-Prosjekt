@@ -9,7 +9,7 @@ if (!empty($_SESSION['logged_in'])) {
         }
 
     }elseif ($_SESSION['RoleID'] == 1) {
-        if (file_exists("inc/header/empoyerHeader.inc.php")) {
+        if (file_exists("inc/header/employerHeader.inc.php")) {
             include "inc/header/employerHeader.inc.php";
         } else {
             include "../inc/header/employerHeader.inc.php";
