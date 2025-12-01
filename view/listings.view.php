@@ -17,10 +17,8 @@ if ($_SESSION['RoleID'] == 3 || $_SESSION['RoleID'] == 1) {
         
         <?php 
             require_once "../inc/database.inc.php";
-/*
-  Henter alle listings, med navn på eier fra users-tabellen
-  Sortert etter nyeste først
-*/
+
+  //Henter alle listings, med navn på eier fra users-tabellen, sortert etter nyeste først
         $sql = "
             SELECT
                 l.ListingID,
@@ -87,7 +85,7 @@ if ($_SESSION['RoleID'] == 3 || $_SESSION['RoleID'] == 1) {
 
 
 
-                        echo '</div>'; // end listing card
+                        echo '</div>';
                     }
                 }
             ?>

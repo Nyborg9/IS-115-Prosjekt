@@ -18,7 +18,7 @@
             } else {
                 // Lager ett DateTime objekt med birthdate strengen.
                 $birthdayDate = DateTime::createFromFormat('Y-m-d', $birthdate);
-                $today        = new DateTime('today');
+                $today = new DateTime('today');
 
                 if (!$birthdayDate || $birthdayDate->format('Y-m-d') !== $birthdate) {
                     $messages[] = "Ugyldig fødselsdato.";
@@ -85,7 +85,7 @@
 
             if(empty($messages)){
                 echo "<p style='color:green;'>Passordene stemmer!</p>";
-                // Lager hash av passordet, for sikker lagring (her med salt via PASSWORD_DEFAULT)
+                // Lager hash av passordet, for sikker lagring
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
 

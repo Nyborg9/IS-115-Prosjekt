@@ -4,82 +4,158 @@
 }
 
 .bordered-content {
-        border: 1px solid black;
-        padding: 10px;
-        margin: 10px 0px 10px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px 0;
 }
 
 .bordered-content .btn {
-        border: 1px solid black;
-        padding: 10px;
-        margin: 10px 10px 10px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
 }
 
 .utlysningsdiv {
-        position: relative;
+    position: relative;
 }
 
 .right-place {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        padding: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
 }
 
 label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 input[type="text"]:not(.small-input),
-textarea:not(.small-input) {
+textarea:not(.small-input),
+input[type="email"]:not(.small-input),
+input[type="date"]:not(.small-input) {
     width: 100%;
 }
 
-
 textarea {
-        min-height: 120px;
+    min-height: 120px;
 }
 
 .errors {
-        color: red;
-        margin-bottom: 10px;
+    color: red;
+    margin-bottom: 10px;
 }
 
 .actions {
-        margin-top: 15px;
+    margin-top: 15px;
 }
 
 .actions button,
 .actions a {
-        margin-right: 10px;
+    margin-right: 10px;
 }
 
 .small-input {
-        width: 300px; 
-        padding: 6px;
-        box-sizing: border-box;
+    width: 300px;
+    padding: 6px;
+    box-sizing: border-box;
 }
 
+.field-label {
+    font-weight: bold;
+}
 
-        .application-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 12px;
-        }
-        .meta {
-            font-size: 0.9em;
-            color: #555;
-        }
-        .status {
-            font-weight: bold;
-        }
-        form.inline {
-            display: inline;
-        }
-        button.btn {
-            padding: 3px 8px;
-            cursor: pointer;
-            border: none;
-        }
+.centered-content {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.application-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.meta {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.status {
+    font-weight: bold;
+}
+
+form.inline {
+    display: inline;
+}
+
+button.btn {
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+button.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+a.btn-link {
+    padding: 3px 8px;
+    border: 1px solid #333;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.centered-content {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.application-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.meta {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.status {
+    font-weight: bold;
+}
+
+form.inline {
+    display: inline;
+}
+
+button.btn {
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+button.btn-accept {
+    background: #2ecc71;
+    color: white;
+}
+
+button.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+a.cv-link {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 8px;
+    border: 1px solid #333;
+    text-decoration: none;
+}

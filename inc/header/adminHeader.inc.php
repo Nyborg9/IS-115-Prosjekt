@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle ?? 'My Website'; ?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/css.css">
@@ -23,9 +22,6 @@
           <a class="nav-link active" href="/IS-115-Prosjekt/index.php">Hjem
             <span class="visually-hidden">(current)</span>
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/IS-115-Prosjekt/view/listings.view.php">Jobbutlysninger</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/IS-115-Prosjekt/view/roleAdmin.view.php">Administrer brukere</a>

@@ -7,19 +7,20 @@ session_start();
     
     include "../inc/navbarController.inc.php";
 
-$pageTitle = "Registrering";
 ?>
 
 </body>
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Registrer en bruker</title>
         <?php include "../inc/header/head.inc.php";?>
         <?php include "../inc/registrationForm.inc.php";?>
     </head>
     <body>
         <div class="centered-content">
             <pre>
+                <!-- Skjema for å lage brukeren-->
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     Fornavn: <input class="small-input" type="text" name="FirstName" placeholder="Fornavn" required><br>
                     Etternavn: <input class="small-input" type="text" name="LastName" placeholder="Etternavn" required><br>

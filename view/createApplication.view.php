@@ -19,7 +19,7 @@ elseif ($_SESSION['RoleID'] != 2) {
 
 include "../inc/navbarController.inc.php";
 
-// Inkluderer logikken for søknadsskjemaet (bot-sjekk, insert, $listing, $error, $dtstart)
+// Inkluderer logikken for søknadsskjemaet
 include "../inc/applicationForm.inc.php";
 ?>
 <!DOCTYPE html>
@@ -45,9 +45,6 @@ include "../inc/applicationForm.inc.php";
         
 
         <input type="submit" name="createApplication" value="Send søknad"><br>
-
-        <!-- Bot-sjekk -->
-        <input type="hidden" name="dtstart" value="<?php echo $dtstart->format("Y-m-d H:i:s.u"); ?>">
     </form>
 
     <p><a href="listings.view.php"> Tilbake til stillinger</a></p>

@@ -91,34 +91,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Brukeradministrasjon</title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 900px;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 6px 10px;
-            text-align: left;
-        }
-        th {
-            background: #f5f5f5;
-        }
-        .centered-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        form.inline {
-            display: inline;
-        }
-        button.role-btn {
-            padding: 4px 10px;
-            cursor: pointer;
-        }
-    </style>
+    <?php include "../inc/navbarController.inc.php"; 
+    include "../inc/header/head.inc.php";
+    ?>
 </head>
 <body>
 <div class="centered-content">
@@ -127,7 +102,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php if (count($users) == 0): ?>
         <p>Ingen brukere funnet.</p>
     <?php else: ?>
-        <table>
+        <table class="admin-table">
             <thead>
             <tr>
                 <th>UserID</th>
@@ -140,12 +115,17 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
             </thead>
             <tbody>
+    <!-- Loop som går igjennom alle brukerene og viser dem i en tabell-->
             <?php foreach ($users as $user): ?>
                 <?php
-                $roleText = ($user['RoleID'] == 1) ? "Arbeidsgiver" : "Student/jobbsøker";
-                $btnText = ($user['RoleID'] == 1)
-                    ? "Endre til student/jobbsøker"
-                    : "Gjør om til en arbeidsgiver";
+                if ($user['RoleID'] == 1) {
+                    $roleText = "Arbeidsgiver";
+                    $btnText = "Endre til student/jobbsøker";
+                } elseif($user['RoleID'] == 2) {
+                    $roleText = "Student/jobbsøker";
+                    $btnText = "Gjør om til en arbeidsgiver";
+                }
+
                 ?>
                 <tr>
                     <td><?= $user['UserID'] ?></td>
@@ -167,12 +147,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <form method="post" class="inline"
                                   onsubmit="return confirm('Er du sikker på at du vil slette denne brukeren?');">
                                 <input type="hidden" name="UserID" value="<?= $user['UserID'] ?>">
-                                <button type="submit" name="deleteUser" class="role-btn" style="background:#e74c3c;color:white;">
+                                <button type="submit" name="deleteUser" class="role-btn role-btn-danger">
                                     Slett
                                 </button>
                             </form>
-                        <?php else: ?>
-                            
                         <?php endif; ?>
                     </td>
                 </tr>

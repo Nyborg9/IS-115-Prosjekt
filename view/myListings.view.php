@@ -22,8 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteListing'])) {
 
     if ($listingIDToDelete > 0) {
 
-        // (Valgfritt, men lurt): Slett søknader knyttet til denne stillingen først,
-        // hvis du ikke har ON DELETE CASCADE på foreign keys.
+        
         $sqlDeleteApplications = "
             DELETE FROM applications
             WHERE ListingID = :listingID
@@ -66,37 +65,10 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Mine stillinger</title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        .centered-content {
-            max-width: 800px;
-            margin: 20px auto;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 6px 10px;
-            text-align: left;
-        }
-        th {
-            background: #f5f5f5;
-        }
-        a.btn {
-            padding: 4px 8px;
-            border: 1px solid #333;
-            text-decoration: none;
-        }
-        form.inline {
-            display: inline;
-        }
-        button.btn {
-            padding: 4px 8px;
-            cursor: pointer;
-        }
-    </style>
+    <?php include "../inc/navbarController.inc.php"; 
+    include "../inc/header/head.inc.php";?>
+
+
 </head>
 <body>
 <div class="centered-content">
@@ -105,7 +77,7 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php if (count($listings) == 0): ?>
         <p>Du har ikke lagt ut noen stillinger enda.</p>
     <?php else: ?>
-        <table>
+        <table class="data-table">
             <thead>
             <tr>
                 <th>Tittel</th>
@@ -138,8 +110,7 @@ $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <form method="post" class="inline"
                               onsubmit="return confirm('Er du sikker på at du vil slette denne stillingen og alle tilhørende søknader?');">
                             <input type="hidden" name="ListingID" value="<?= $listing['ListingID'] ?>">
-                            <button type="submit" name="deleteListing" class="btn"
-                                    style="background:#e74c3c;color:white;">
+                            <button type="submit" name="deleteListing" class="btn btn-danger">
                                 Slett
                             </button>
                         </form>

@@ -23,7 +23,7 @@ if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stillings-ID.");
 }
 
-$listingID = (int)$_GET['listingID'];
+$listingID = $_GET['listingID'];
 
 // Sjekk at denne utlysningen faktisk tilhører innlogget arbeidsgiver
 $sqlListing = "
@@ -50,6 +50,7 @@ $sqlApplications = "
         a.ApplicationText,
         a.created_at,
         a.ApplicationStatus,
+        a.CvPath,         
         u.FirstName,
         u.LastName,
         u.Email
@@ -100,20 +101,18 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- Godta -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
-                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
-                    <button type="submit" name="applicationAction" value="Godta" class="btn"
-                            style="background:#2ecc71;color:white;">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= $listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Godta" class="btn btn-accept">
                         Godta
                     </button>
                 </form>
 
                 <!-- Avvis -->
                 <form method="post" class="inline" action="../inc/handleApplication.inc.php">
-                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
-                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
-                    <button type="submit" name="applicationAction" value="Avvis" class="btn"
-                            style="background:#e74c3c;color:white;">
+                    <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= $listingID; ?>">
+                    <button type="submit" name="applicationAction" value="Avvis" class="btn btn-danger">
                         Avvis
                     </button>
                 </form>

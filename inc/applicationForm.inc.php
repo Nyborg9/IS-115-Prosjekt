@@ -6,16 +6,16 @@ if (!isset($_SESSION['UserID'])) {
     exit;
 }
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 // Hent ListingID fra GET
 if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
     die("Ugyldig stilling.");
 }
 
-$listingID = (int)$_GET['listingID'];
+$listingID = $_GET['listingID'];
 
-// Koble til DB og hent stillingstittel (til overskrift)
+// Koble til DB og hent stillingstittel
 require_once "../inc/database.inc.php";
 
 $sqlListing = "
@@ -89,7 +89,7 @@ if (isset($_POST['createApplication'])) {
             $cvDir = __DIR__ . "    ../../CV/";
 
             $suffix = $allowedTypes[$fileType]; // "pdf"
-            $fileName = $userID . "_" . $listingID . "." . $suffix; // f.eks. 5_12.pdf
+            $fileName = $userID . "_" . $listingID . "." . $suffix;
             $targetPath = $cvDir . $fileName;
 
             if (!move_uploaded_file($tmpName, $targetPath)) {
@@ -97,7 +97,7 @@ if (isset($_POST['createApplication'])) {
                 exit;
             }
 
-            // Sti som lagres i databasen (relativ til webroot / prosjekt)
+            // Sti som lagres i databasen
             $cvPath = "CV/" . $fileName;
 
         } else {
@@ -106,11 +106,11 @@ if (isset($_POST['createApplication'])) {
         }
     }
 
-    // Lagre søknaden i databasen (med eller uten CV-path)
+    // Lagre søknaden i databasen
     require_once "../database/addApplication.db.php";
 
         if (addApplication($pdo, $userID, $listingID, $applicationText, $cvPath)) {
-            // Ferdig send bruker tilbake til stillinger eller en takk-side
+
             header("Location: listings.view.php");
             exit;
         } else {
