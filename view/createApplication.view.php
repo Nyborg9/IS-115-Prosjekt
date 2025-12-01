@@ -1,86 +1,39 @@
 <?php
 session_start();
-require_once "../inc/database.inc.php";
 
-// Sjekk at bruker er logget inn
-if (!isset($_SESSION['UserID'])) {
-    header("Location: login.view.php");
+if (empty($_SESSION['logged_in'])) {
+    header("Location: redirect.view.php");
     exit;
 }
 
-$userID = $_SESSION['UserID'];
+include "../inc/navbarController.inc.php";
 
-// Hent ListingID fra GET ved første visning
-if (!isset($_GET['listingID']) || !is_numeric($_GET['listingID'])) {
-    echo("Ugyldig stilling.");
-}
-
-$listingID = $_GET['listingID'];
-
-// Hvis skjemaet er sendt inn
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $applicationText = $_POST['ApplicationText'] ?? '';
-
-    if (trim($applicationText) === '') {
-        $error = "Søknadstekst kan ikke være tom.";
-    } else {
-        // Lagre søknaden i databasen
-        $sql = "
-            INSERT INTO applications (UserID, ListingID, ApplicationText, created_at)
-            VALUES (:UserID, :ListingID, :ApplicationText, NOW())
-        ";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':UserID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':ListingID', $listingID, PDO::PARAM_INT);
-        $stmt->bindParam(':ApplicationText', $applicationText, PDO::PARAM_STR);
-
-        if ($stmt->execute()) {
-            // Ferdig – send bruker tilbake til stillinger eller en "takk"-side
-            header("Location: listings.view.php");
-            exit;
-        } else {
-            $error = "Kunne ikke lagre søknaden. Prøv igjen.";
-        }
-    }
-}
-
-// Hent litt info om stillingen til overskrift (valgfritt, men fint)
-$sqlListing = "
-    SELECT Title
-    FROM listings
-    WHERE ListingID = :ListingID
-";
-$stmtListing = $pdo->prepare($sqlListing);
-$stmtListing->bindParam(':ListingID', $listingID, PDO::PARAM_INT);
-$stmtListing->execute();
-$listing = $stmtListing->fetch(PDO::FETCH_ASSOC);
-
-if (!$listing) {
-    die("Fant ikke stillingen.");
-}
+// Inkluderer logikken for søknadsskjemaet (bot-sjekk, insert, $listing, $error, $dtstart)
+include "../inc/applicationForm.inc.php";
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Søk på: <?= htmlspecialchars($listing['Title']) ?></title>
-    <?php include "../inc/navbarController.inc.php"; ?>
+    <meta charset="UTF-8">
+    <title>Søk på: <?= htmlspecialchars($listing['Title']); ?></title>
 </head>
 <body>
 <div class="centered-content">
-    <h1>Søk på: <?= htmlspecialchars($listing['Title']) ?></h1>
+    <h1>Søk på: <?= htmlspecialchars($listing['Title']); ?></h1>
 
     <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <p style="color:red;"><?= htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
-    <form method="post">
-        <input type="hidden" name="ListingID" value="<?= $listingID ?>">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?listingID=' . urlencode($listingID)); ?>">
 
         <label for="ApplicationText">Søknadstekst</label><br>
         <textarea name="ApplicationText" id="ApplicationText" rows="10" cols="60" required></textarea><br><br>
 
-        <button type="submit">Send søknad</button>
+        <input type="submit" name="createApplication" value="Send søknad"><br>
+
+        <!-- Bot-sjekk -->
+        <input type="hidden" name="dtstart" value="<?php echo $dtstart->format("Y-m-d H:i:s.u"); ?>">
     </form>
 
     <p><a href="listings.view.php">← Tilbake til stillinger</a></p>
