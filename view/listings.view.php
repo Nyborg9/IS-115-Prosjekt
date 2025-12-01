@@ -1,4 +1,5 @@
 <?php session_start();?>
+<?php include "../inc/header/head.inc.php"?>
 
 
 <!DOCTYPE html>
@@ -35,7 +36,7 @@
         ?>
     </head>
     <body>
-        <div class="centered-content">
+        <div class="centered-content bordered-content">
             <h1>Ledige stillinger</h1>
 
 

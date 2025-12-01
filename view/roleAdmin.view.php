@@ -142,9 +142,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
             <?php foreach ($users as $user): ?>
                 <?php
-                $roleText = ($user['RoleID'] == 1) ? "Arbeidsgiver" : "Vanlig bruker";
+                $roleText = ($user['RoleID'] == 1) ? "Arbeidsgiver" : "Student/jobbsøker";
                 $btnText = ($user['RoleID'] == 1)
-                    ? "Endre til vanlig bruker"
+                    ? "Endre til student/jobbsøker"
                     : "Gjør om til en arbeidsgiver";
                 ?>
                 <tr>

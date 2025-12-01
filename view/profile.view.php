@@ -52,7 +52,7 @@ if (!$user) {
 
 $roleText = match ($user['RoleID']) {
     1 => "Arbeidsgiver",
-    2 => "Vanlig bruker",
+    2 => "Student/jobbsøker",
     3 => "Administrator",
 };
 
@@ -91,7 +91,7 @@ $roleText = match ($user['RoleID']) {
 
     <div class="actions">
         <!-- Knapp for å redigere info -->
-        <a href="editProfile.view.php" class="btn">Endre informasjon</a>
+        <a href="editProfile.view.php" class="btn" style="border:1px solid black;">Endre informasjon</a>
 
         <!-- Slett-konto knapp (ikke for admin) -->
         <?php if ($user['RoleID'] != 3): ?>

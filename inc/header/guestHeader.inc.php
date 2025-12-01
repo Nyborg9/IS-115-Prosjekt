@@ -29,7 +29,7 @@
           <a class="nav-link" href="/IS-115-Prosjekt/view/register.view.php">Registrer deg</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/IS-115-Prosjekt/view/listings.view.php">Jobb utlysninger</a>
+          <a class="nav-link" href="/IS-115-Prosjekt/view/listings.view.php">Jobbutlysninger</a>
         </li>
           </div>
         </li>
