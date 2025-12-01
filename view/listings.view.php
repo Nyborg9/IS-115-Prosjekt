@@ -1,5 +1,14 @@
 <?php session_start();?>
-<?php include "../inc/header/head.inc.php"?>
+<?php include "../inc/header/head.inc.php";
+
+if(isset($_SESSION['RoleID'])){
+if ($_SESSION['RoleID'] == 3 || $_SESSION['RoleID'] == 1) {
+    header("Location: noAccess.view.php");
+    exit;
+}}
+
+?>
+
 
 
 <!DOCTYPE html>

@@ -16,7 +16,7 @@
             if ($birthdate == '') {
             $messages[] = "Du må oppgi fødselsdato.";
             } else {
-                // Forventer format YYYY-MM-DD fra <input type=\"date\">
+                // Lager ett DateTime objekt med birthdate strengen.
                 $birthdayDate = DateTime::createFromFormat('Y-m-d', $birthdate);
                 $today        = new DateTime('today');
 
@@ -35,6 +35,24 @@
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $messages[] = "Ugyldig epost brukt";
             }
+
+            require_once "../inc/database.inc.php";
+
+                $sql = "
+                    SELECT UserID
+                    FROM users
+                    WHERE Email = :email
+                    LIMIT 1
+                ";
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->fetch()) {
+                    $messages[] = "Denne epostadressen er allerede i bruk.";
+                }
+            
             
             if(strlen($firstName) <= 2){
                  $messages[] = "Fornavnet må være mer en bokstav";

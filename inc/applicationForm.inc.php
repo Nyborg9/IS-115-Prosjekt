@@ -1,12 +1,4 @@
 <?php
-// Tidssone
-$dts = new DateTimeZone("Europe/Oslo");
-
-// Tid ved lasting av skjema
-$dtstart = new DateTime("now", $dts);
-
-// Feilmelding til bruk i view
-$error = "";
 
 // Sjekk at bruker er logget inn
 if (!isset($_SESSION['UserID'])) {
@@ -37,32 +29,92 @@ $stmtListing->execute();
 $listing = $stmtListing->fetch(PDO::FETCH_ASSOC);
 
 if (!$listing) {
-    die("Fant ikke stillingen.");
+    echo("Fant ikke stillingen.");
+    exit;
 }
 
 // Kjøres når brukeren trykker "Send søknad"
 if (isset($_POST['createApplication'])) {
 
-    // Bot-sjekk tid
-    if (!empty($_POST['dtstart'])) {
-        $dtstart = new DateTime($_POST['dtstart'], $dts);
-    }
-    $dtslutt = new DateTime("now", $dts);
-
     // Hent ut data
     $applicationText = $_POST['ApplicationText'] ?? '';
+    $applicationText = trim($applicationText);
 
-    if (trim($applicationText) === '') {
-        $error = "Søknadstekst kan ikke være tom.";
+    if ($applicationText == '') {
+        echo "Søknadstekst kan ikke være tom.";
+        exit;
     } else {
-        require_once "../database/addApplication.db.php";
 
-        if (addApplication($pdo, $userID, $listingID, $applicationText)) {
+        // Sjekk om brukeren allerede har søkt på denne stillingen
+    $sqlCheck = "
+        SELECT *
+        FROM applications
+        WHERE UserID = :userID
+          AND ListingID = :listingID
+    ";
+    $stmtCheck = $pdo->prepare($sqlCheck);
+    $stmtCheck->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmtCheck->bindParam(':listingID', $listingID, PDO::PARAM_INT);
+    $stmtCheck->execute();
+    $oldApplication = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+    if (!empty($oldApplication)) {
+        echo  ("Du har allerede sendt inn en søknad til denne stillingen.");
+        exit;
+    }
+
+    // Håndter CV-opplasting
+    $cvPath = null;
+
+    if (isset($_FILES['CvFile'])) {
+
+        $allowedTypes = ['application/pdf' => 'pdf'];
+        $maxSize = 1 * 1024 * 1024; // 1MB
+        
+            $tmpName  = $_FILES['CvFile']['tmp_name'];
+            $fileType = $_FILES['CvFile']['type'];
+            $fileSize = $_FILES['CvFile']['size'];
+
+            if (!array_key_exists($fileType, $allowedTypes)) {
+                echo "CV må være en PDF-fil.";
+                exit;
+            }
+
+            if ($fileSize > $maxSize) {
+                echo "CV-filen er for stor (maks 1MB).";
+                exit;
+            }
+
+
+            $cvDir = __DIR__ . "    ../../CV/";
+
+            $suffix = $allowedTypes[$fileType]; // "pdf"
+            $fileName = $userID . "_" . $listingID . "." . $suffix; // f.eks. 5_12.pdf
+            $targetPath = $cvDir . $fileName;
+
+            if (!move_uploaded_file($tmpName, $targetPath)) {
+                echo "Kunne ikke lagre CV-filen på serveren.";
+                exit;
+            }
+
+            // Sti som lagres i databasen (relativ til webroot / prosjekt)
+            $cvPath = "CV/" . $fileName;
+
+        } else {
+            echo "Noe gikk galt ved opplasting av CV.";
+            exit;
+        }
+    }
+
+    // Lagre søknaden i databasen (med eller uten CV-path)
+    require_once "../database/addApplication.db.php";
+
+        if (addApplication($pdo, $userID, $listingID, $applicationText, $cvPath)) {
             // Ferdig send bruker tilbake til stillinger eller en takk-side
             header("Location: listings.view.php");
             exit;
         } else {
-            $error = "Kunne ikke lagre søknaden. Prøv igjen.";
+            echo "Kunne ikke lagre søknaden. Prøv igjen.";
+            exit;
         }
     }
-}

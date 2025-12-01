@@ -8,10 +8,9 @@ if (empty($_SESSION['logged_in'])) {
     exit;
 }
 
-
 $userID = $_SESSION['UserID'];
 
-//Sletting av søknader
+//Sletter søknaden
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteApplication'])) {
     $applicationIDToDelete = isset($_POST['ApplicationID']) ? $_POST['ApplicationID'] : 0;
 
@@ -40,13 +39,13 @@ $sql = "
         a.ApplicationText,
         a.created_at,
         a.ApplicationStatus,
+        a.CvPath,           
         l.Title AS ListingTitle
     FROM applications a
     JOIN listings l ON a.ListingID = l.ListingID
     WHERE a.UserID = :userID
     ORDER BY a.created_at DESC
 ";
-
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
@@ -78,11 +77,16 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
         form.inline {
             display: inline;
         }
-        button.btn, a.btn {
+        button.btn {
             padding: 3px 8px;
             cursor: pointer;
-            text-decoration: none;
+        }
+        a.btn-link {
+            padding: 3px 8px;
             border: 1px solid #333;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -90,7 +94,7 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="centered-content">
     <h1>Mine søknader</h1>
 
-    <?php if (count($applications) == 0): ?>
+    <?php if (count($applications) === 0): ?>
         <p>Du har ikke sendt inn noen søknader enda.</p>
     <?php else: ?>
         <?php foreach ($applications as $app): ?>
@@ -100,6 +104,7 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 1 => 'Venter på svar',
                 2 => 'Godkjent',
                 3 => 'Avvist',
+                default => 'Ukjent',
             };
             ?>
             <div class="application-card">
@@ -111,19 +116,24 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <p><?= nl2br(htmlspecialchars($app['ApplicationText'])); ?></p>
 
-                <div class="actions">
-                    <!-- Endre søknad -->
-                    <a class="btn" href="editApplication.view.php?applicationID=<?= $app['ApplicationID']; ?>">
-                        Endre søknad
-                    </a>
+                <?php if (!empty($app['CvPath'])): ?>
+                    <p>
+                        CV:
+                        <a class="btn-link" href="../<?= htmlspecialchars($app['CvPath']); ?>" target="_blank">
+                            Åpne CV
+                        </a>
+                    </p>
+                <?php else: ?>
+                    <p>CV: Ikke lastet opp</p>
+                <?php endif; ?>
 
-                    <!-- Slett søknad -->
+                <div class="actions">
                     <form method="post" class="inline"
                           onsubmit="return confirm('Er du sikker på at du vil slette denne søknaden?');">
                         <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
                         <button type="submit" name="deleteApplication" class="btn"
                                 style="background:#e74c3c;color:white;">
-                            Slett
+                            Slett søknad
                         </button>
                     </form>
                 </div>
