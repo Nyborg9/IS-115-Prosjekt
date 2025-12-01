@@ -195,6 +195,10 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
                     <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
                     <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
+                <!-- Godta -->
+                <form method="post" class="inline" action="../inc/handleApplication.inc.php">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
                     <button type="submit" name="applicationAction" value="Godta" class="btn"
                             style="background:#2ecc71;color:white;">
                         Godta
@@ -205,11 +209,17 @@ $applications = $stmtApp->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
                     <input type="hidden" name="Email" value="<?= htmlspecialchars($app['Email']); ?>">
                     <input type="hidden" name="Title" value="<?= htmlspecialchars($listing['Title']); ?>">
+                <!-- Avvis -->
+                <form method="post" class="inline" action="../inc/handleApplication.inc.php">
+                    <input type="hidden" name="ApplicationID" value="<?= (int)$app['ApplicationID']; ?>">
+                    <input type="hidden" name="ListingID"     value="<?= (int)$listingID; ?>">
                     <button type="submit" name="applicationAction" value="Avvis" class="btn"
                             style="background:#e74c3c;color:white;">
                         Avvis
                     </button>
                 </form>
+
+
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
