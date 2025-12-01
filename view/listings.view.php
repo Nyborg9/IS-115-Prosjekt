@@ -36,7 +36,7 @@
         ?>
     </head>
     <body>
-        <div class="centered-content bordered-content">
+        <div class="centered-content">
             <h1>Ledige stillinger</h1>
 
 
@@ -45,7 +45,7 @@
                     echo '<p>Ingen annonser enda.</p>';
                 } else {
                     foreach ($listings as $listing) {
-                        echo '<div class="utlysning">';
+                        echo '<div class="utlysning bordered-content utlysningsdiv">';
                         echo '<h2>' . htmlspecialchars($listing['Title']) . '</h2>';
                         echo '<div class="meta"> Lagt ut av: ' . htmlspecialchars($listing['FirstName'] . ' ' . $listing['LastName']) .
                             ' • ' . htmlspecialchars($listing['created_at']) .
@@ -72,7 +72,7 @@
                                 '</p>';
                         }
 
-                        echo '<a class="btn" href="createApplication.view.php?listingID=' . $listing['ListingID'] . '">
+                        echo '<a class="btn right-place bordered-content" href="createApplication.view.php?listingID=' . $listing['ListingID'] . '">
                         Søk på stillingen
                         </a>';
 

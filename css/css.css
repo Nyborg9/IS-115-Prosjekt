@@ -6,6 +6,24 @@
 .bordered-content {
         border: 1px solid black;
         padding: 10px;
+        margin: 10px 0px 10px;
+}
+
+.bordered-content .btn {
+        border: 1px solid black;
+        padding: 10px;
+        margin: 10px 10px 10px;
+}
+
+.utlysningsdiv {
+        position: relative;
+}
+
+.right-place {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 5px;
 }
 
 label {
@@ -14,12 +32,11 @@ label {
         font-weight: bold;
 }
 
-input[type="text"], 
-textarea {
-        width: 100%;
-        padding: 6px;
-        box-sizing: border-box;
+input[type="text"]:not(.small-input),
+textarea:not(.small-input) {
+    width: 100%;
 }
+
 
 textarea {
         min-height: 120px;
@@ -37,4 +54,10 @@ textarea {
 .actions button,
 .actions a {
         margin-right: 10px;
+}
+
+.small-input {
+        width: 300px; 
+        padding: 6px;
+        box-sizing: border-box;
 }

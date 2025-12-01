@@ -8,6 +8,9 @@ if (!empty($_SESSION['logged_in'])) {
 require_once("../inc/database.inc.php");
 require_once("../database/loginAttempt.db.php");
 ?>
+
+<?php include "../inc/header/head.inc.php";?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,9 +23,9 @@ require_once("../database/loginAttempt.db.php");
 
 
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <div>
-                <input type="text" name="Email" placeholder="Brukernavn/Epost" />
-                <input type="password" name="Password" placeholder="Passord" />
+            <div class="centered-content">
+                <input class="small-input" type="text" name="Email" placeholder="Brukernavn/Epost" />
+                <input class="small-input" type="password" name="Password" placeholder="Passord" />
                 <input type="submit" name="logginn" value="Logg inn">
             </div>
         </form>
