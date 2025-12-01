@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Sjekker lengden på navnet
-    if (strlen($firstName) <= 2) {
+    if (strlen($firstName) < 2) {
         $errors[] = "Fornavnet må være mer enn en bokstav.";
     }
 
-    if (strlen($lastName) <= 2) {
+    if (strlen($lastName) < 2) {
         $errors[] = "Etternavnet må være mer enn en bokstav.";
     }
 

@@ -24,7 +24,7 @@
 
 
                 // Sender brukeren videre til login etter registrering
-                header("Location: listings.view.php");
+                header("Location: myListings.view.php");
                 exit;
             }
         ?>
