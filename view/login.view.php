@@ -14,6 +14,8 @@ require_once("../database/loginAttempt.db.php");
 <!DOCTYPE html>
 <html>
     <head>
+                <title>Logg inn</title>
+
         <?php include "../inc/navbarController.inc.php";?>
     </head>
     <body>

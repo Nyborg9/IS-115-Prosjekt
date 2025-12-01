@@ -6,6 +6,7 @@ include "../inc/navbarController.inc.php";?>
 <html>
     <head>
         <?php include "../inc/header/head.inc.php"?>
+        <title>Redirect</title>
     </head>
     <body> 
         <div class="centered-content">      

@@ -25,14 +25,14 @@ if (empty($_SESSION['logged_in']) || !isset($_SESSION['RoleID']) || $_SESSION['R
     die("Ingen tilgang.");
 }
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die("Ugyldig forespørsel.");
 }
 
-$applicationID = isset($_POST['ApplicationID']) ? (int)$_POST['ApplicationID'] : 0;
-$listingID     = isset($_POST['ListingID']) ? (int)$_POST['ListingID'] : 0;
+$applicationID = isset($_POST['ApplicationID']) ? $_POST['ApplicationID'] : 0;
+$listingID     = isset($_POST['ListingID']) ? $_POST['ListingID'] : 0;
 $action        = $_POST['applicationAction'] ?? '';
 
 if ($applicationID <= 0 || $listingID <= 0 || ($action !== 'Godta' && $action !== 'Avvis')) {

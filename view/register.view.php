@@ -7,13 +7,13 @@ session_start();
     
     include "../inc/navbarController.inc.php";
 
-$pageTitle = "Registrering";
 ?>
 
 </body>
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Registrer en bruker</title>
         <?php include "../inc/header/head.inc.php";?>
         <?php include "../inc/registrationForm.inc.php";?>
     </head>

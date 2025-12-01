@@ -8,7 +8,7 @@ if (empty($_SESSION['logged_in'])) {
 
 require_once "../inc/database.inc.php";
 
-$userID = (int)$_SESSION['UserID'];
+$userID = $_SESSION['UserID'];
 
 $errors = [];
 
@@ -129,29 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($errors)) {
 <head>
     <meta charset="UTF-8">
     <title>Endre informasjon</title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        .centered-content {
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="date"] {
-            width: 100%;
-            padding: 6px;
-            box-sizing: border-box;
-        }
-        .errors {
-            color: red;
-        }
-    </style>
+    <?php include "../inc/navbarController.inc.php"; 
+    include "../inc/header/head.inc.php"?>
 </head>
-<body>
+<body>  
 <div class="centered-content">
     <h1>Endre informasjon</h1>
 

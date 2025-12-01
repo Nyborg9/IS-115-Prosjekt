@@ -18,7 +18,7 @@
             } else {
                 // Lager ett DateTime objekt med birthdate strengen.
                 $birthdayDate = DateTime::createFromFormat('Y-m-d', $birthdate);
-                $today        = new DateTime('today');
+                $today = new DateTime('today');
 
                 if (!$birthdayDate || $birthdayDate->format('Y-m-d') !== $birthdate) {
                     $messages[] = "Ugyldig fødselsdato.";

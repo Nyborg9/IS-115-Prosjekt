@@ -56,39 +56,10 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Mine søknader</title>
-    <?php include "../inc/navbarController.inc.php"; ?>
-    <style>
-        .centered-content {
-            max-width: 900px;
-            margin: 20px auto;
-        }
-        .application-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 12px;
-        }
-        .meta {
-            font-size: 0.9em;
-            color: #555;
-        }
-        .status {
-            font-weight: bold;
-        }
-        form.inline {
-            display: inline;
-        }
-        button.btn {
-            padding: 3px 8px;
-            cursor: pointer;
-        }
-        a.btn-link {
-            padding: 3px 8px;
-            border: 1px solid #333;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 5px;
-        }
-    </style>
+    <?php 
+        include "../inc/navbarController.inc.php"; 
+        include "../inc/header/head.inc.php";
+    ?>
 </head>
 <body>
 <div class="centered-content">
@@ -131,8 +102,7 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form method="post" class="inline"
                           onsubmit="return confirm('Er du sikker på at du vil slette denne søknaden?');">
                         <input type="hidden" name="ApplicationID" value="<?= $app['ApplicationID']; ?>">
-                        <button type="submit" name="deleteApplication" class="btn"
-                                style="background:#e74c3c;color:white;">
+                        <button type="submit" name="deleteApplication" class="btn btn-danger">
                             Slett søknad
                         </button>
                     </form>
