@@ -19,7 +19,7 @@ elseif ($_SESSION['RoleID'] != 2) {
 
 include "../inc/navbarController.inc.php";
 
-// Inkluderer logikken for søknadsskjemaet (bot-sjekk, insert, $listing, $error
+// Inkluderer logikken for søknadsskjemaet
 include "../inc/applicationForm.inc.php";
 ?>
 <!DOCTYPE html>

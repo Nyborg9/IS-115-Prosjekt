@@ -85,7 +85,7 @@
 
             if(empty($messages)){
                 echo "<p style='color:green;'>Passordene stemmer!</p>";
-                // Lager hash av passordet, for sikker lagring (her med salt via PASSWORD_DEFAULT)
+                // Lager hash av passordet, for sikker lagring
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
 
