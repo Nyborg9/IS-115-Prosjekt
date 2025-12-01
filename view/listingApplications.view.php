@@ -98,7 +98,7 @@ $sqlApplications = "
         a.ApplicationText,
         a.created_at,
         a.ApplicationStatus,
-        a.CvPath,          -- 🔹 NY: hent sti til PDF
+        a.CvPath,
         u.FirstName,
         u.LastName,
         u.Email
