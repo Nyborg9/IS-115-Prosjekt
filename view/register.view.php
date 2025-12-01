@@ -22,7 +22,6 @@ include "../inc/registrationForm.inc.php";
         Passord: <input type="password" name="Password" placeholder="Passord" required><br>
         Bekreft passord: <input type="password" name="Confirm_Password" placeholder="Gjenta passord" required><br>
         <input type="submit" name="registrer" value="Registrer"><br>
-        <input type="hidden" name="dtstart" value="<?php echo $dtstart->format("Y-m-d H:i:s.u"); ?>">
     </form>
 </pre>
 
