@@ -78,7 +78,7 @@ try {
     $mail->Port       = 587;
 
     $mail->Username   = "katarinaegebakken@gmail.com";
-    $mail->Password   = "xxztpmpwgdsbdhbn";
+    $mail->Password   = "";
 
     $mail->setFrom("katarinaegebakken@gmail.com", "Bit by Bit");
     $mail->addAddress($app['Email'], $app['FirstName']." ".$app['LastName']);
